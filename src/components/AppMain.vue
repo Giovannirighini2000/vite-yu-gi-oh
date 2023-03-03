@@ -3,7 +3,7 @@
         <!-- <button>alien</button> -->
         <div class="container back-2">
             <div class="black flex item-aling">
-                <p class="white">found 39 cards</p>
+                <p class="white">found {{ store.cards.length }} cards</p>
             </div>
             <ul class="container flex wrap">
                 <AppCardMain v-for="card in store.cards" :key="card.id" :card="card" />
@@ -25,7 +25,7 @@ export default {
     },
     data() {
         return {
-            store: store
+            store
         }
 
 
