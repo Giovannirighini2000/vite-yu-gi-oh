@@ -1,21 +1,13 @@
 <template>
     <div class="back-1">
-        <!-- <select></select> -->
-        <div class="back-2">
-            <ul class="container">
-                <div class="black flex item-aling">
-                    <p class="white">found 39 cards</p>
-                </div>
-                <li v-for="card in cards" :key="card.id">
-                    <img :src="card.card_images[0].image_url" alt="">
-                    <p>{{ card.name }}</p>
-                    <p>
-                        {{ card.archetype }}
-                    </p>
+        <!-- <button>alien</button> -->
+        <div class="container back-2">
+            <div class="black flex item-aling">
+                <p class="white">found 39 cards</p>
+            </div>
+            <ul class="container flex wrap">
+                <AppCardMain v-for="card in store.cards" :key="card.id" :card="card" />
 
-
-
-                </li>
 
             </ul>
 
@@ -23,11 +15,17 @@
     </div>
 </template>
 <script>
+import AppCardMain from './AppCardMain.vue'
+import store from '../store'
 import axios from 'axios'
 export default {
+    components: {
+        AppCardMain,
+
+    },
     data() {
         return {
-            cards: []
+            store: store
         }
 
 
@@ -39,7 +37,7 @@ export default {
                 .get('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0')
                 .then((res) => {
                     console.log(res.data.data)
-                    this.cards = res.data.data
+                    this.store.cards = res.data.data
                 })
 
 
@@ -55,22 +53,33 @@ export default {
 <style lang="scss" scoped>
 .back-1 {
     background-color: #d48f38;
-    height: 100vh;
+    padding-top: 20px;
+
 
 }
 
 .back-2 {
     background-color: white;
+    padding-left: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 .black {
     background-color: #212529;
     height: 50px;
+    margin-right: 15px;
 }
 
 .white {
     color: white;
     padding-left: 10px;
     font-weight: bold;
+}
+
+
+.wrap {
+    flex-wrap: wrap;
+    gap: 11px;
 }
 </style>
