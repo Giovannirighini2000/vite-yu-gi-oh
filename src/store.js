@@ -3,6 +3,7 @@ const store = reactive(
     {
         cards: [],
         search: '',
+        num: '',
     }
 
 

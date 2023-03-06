@@ -38,12 +38,14 @@ export default {
     },
     methods: {
         feathCards() {
+            const numero = this.store.num
             const search = this.store.search
             console.log('cards')
             axios
-                .get('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0', {
+                .get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?num=${numero}&offset=0`, {
                     params: {
                         fname: search,
+
 
                     }
                 })
