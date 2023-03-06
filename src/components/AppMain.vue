@@ -1,7 +1,10 @@
 <template>
     <div class="back-1">
-        <!-- <button>alien</button> -->
-        <div class="container back-2">
+        <div class="container">
+            <Filters @onSearch="feathCards" />
+        </div>
+
+        <div class=" container back-2">
             <div class="black flex item-aling">
                 <p class="white">found {{ store.cards.length }} cards</p>
             </div>
@@ -18,9 +21,12 @@
 import AppCardMain from './AppCardMain.vue'
 import store from '../store'
 import axios from 'axios'
+import Filters from './Filters.vue'
+
 export default {
     components: {
         AppCardMain,
+        Filters,
 
     },
     data() {
@@ -32,9 +38,16 @@ export default {
     },
     methods: {
         feathCards() {
+            const search = this.store.search
             console.log('cards')
             axios
-                .get('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0')
+                .get('https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0', {
+                    params: {
+                        fname: search,
+
+                    }
+                })
+
                 .then((res) => {
                     console.log(res.data.data)
                     this.store.cards = res.data.data
@@ -42,6 +55,7 @@ export default {
 
 
         }
+
     },
     created() {
         this.feathCards()
